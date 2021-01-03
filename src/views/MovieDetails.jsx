@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import { Route } from "react-router-dom";
 import * as API from "../services/tmdbApi";
+import Cast from "./Cast.jsx";
+import Reviews from "./Reviews.jsx";
 
 export default function MovieDetailsView() {
   const { movieId } = useParams();
@@ -32,6 +35,22 @@ export default function MovieDetailsView() {
             <span key={genre.id}>{genre.name}</span>
           ))}
         </div>
+        <ul>
+          <li key="cast">
+            <NavLink to={`/movies/${movieId}/cast`}>{"Cast"}</NavLink>
+          </li>
+          <li key="reviews">
+            {" "}
+            <NavLink to={`/movies/${movieId}/reviews`}>{"Reviews"}</NavLink>
+          </li>
+        </ul>
+
+        <Route path="/movies/:movieId/cast">
+          <Cast id={movieId} />
+        </Route>
+        <Route path="/movies/:movieId/reviews">
+          <Reviews id={movieId} />
+        </Route>
       </div>
     )
   );

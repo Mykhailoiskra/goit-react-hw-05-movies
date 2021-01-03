@@ -18,3 +18,33 @@ export async function getMovieById(id) {
     ? response.json()
     : Promise.reject(new Error("Something is wrong"));
 }
+
+export async function getCast(id) {
+  const response = await fetch(
+    `${BASE_URL}movie/${id}/credits?api_key=${KEY}&language=en-US`
+  );
+
+  return response.ok
+    ? response.json()
+    : Promise.reject(new Error("Something is wrong"));
+}
+
+export async function getReviews(id) {
+  const response = await fetch(
+    `${BASE_URL}movie/${id}/reviews?api_key=${KEY}&language=en-US`
+  );
+
+  return response.ok
+    ? response.json()
+    : Promise.reject(new Error("Something is wrong"));
+}
+
+export async function findMovie(query, page) {
+  const response = await fetch(
+    `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&page=${page}&query=${query}`
+  );
+
+  return response.ok
+    ? response.json()
+    : Promise.reject(new Error("Something is wrong"));
+}
