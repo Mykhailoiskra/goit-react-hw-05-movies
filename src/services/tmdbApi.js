@@ -8,3 +8,13 @@ export async function getTrendingMovies() {
     ? response.json()
     : Promise.reject(new Error("Something is wrong"));
 }
+
+export async function getMovieById(id) {
+  const response = await fetch(
+    `${BASE_URL}movie/${id}?api_key=${KEY}&language=en-US`
+  );
+
+  return response.ok
+    ? response.json()
+    : Promise.reject(new Error("Something is wrong"));
+}

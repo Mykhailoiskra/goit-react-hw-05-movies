@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as API from "../services/tmdbApi";
 
 export default function Homepage() {
@@ -8,14 +9,14 @@ export default function Homepage() {
     API.getTrendingMovies().then(({ results }) => setPopMovies(results));
   }, []);
 
-  console.log(popMovies);
-
   return (
     <>
       {popMovies && (
         <ul>
           {popMovies.map((movie) => (
-            <li key={movie.id}>{movie.title}</li>
+            <li key={movie.id}>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            </li>
           ))}
         </ul>
       )}
