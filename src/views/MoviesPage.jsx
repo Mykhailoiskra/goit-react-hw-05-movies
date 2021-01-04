@@ -1,32 +1,35 @@
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useRouteMatch, useHistory, useLocation } from "react-router-dom";
 import * as API from "../services/tmdbApi";
 import SearchForm from "../components/SearchForm";
 import Button from "../components/Button";
 
 export default function MoviesPage() {
+  const history = useHistory();
+  const location = useLocation();
+
   const [searchResult, setSearchResult] = useState(null);
-  const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const isFirstRender = useRef(true);
+
+  const { url } = useRouteMatch();
+  const searchQuery = new URLSearchParams(location.search).get("query");
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
+    if (searchQuery === null) {
       return;
     }
-    API.findMovie(query, page).then((res) => {
+    API.findMovie(searchQuery, page).then((res) => {
       if (page === 1) {
         setSearchResult(res.results);
       } else {
         setSearchResult((prevResults) => [...prevResults, ...res.results]);
       }
     });
-  }, [query, page]);
+  }, [searchQuery, page]);
 
   const handleSearch = (query) => {
-    setQuery(query);
     setPage(1);
+    history.push({ ...location, search: `query=${query}` });
   };
 
   const handleShowMore = () => {
@@ -41,7 +44,7 @@ export default function MoviesPage() {
           <ul>
             {searchResult.map((movie) => (
               <li key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                <Link to={`${url}/${movie.id}`}>{movie.title}</Link>
               </li>
             ))}
           </ul>

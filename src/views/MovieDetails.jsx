@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { NavLink, useParams, useRouteMatch } from "react-router-dom";
 import { Route } from "react-router-dom";
 import * as API from "../services/tmdbApi";
-import Cast from "./Cast.jsx";
-import Reviews from "./Reviews.jsx";
+
+const Cast = lazy(() => import("./Cast.jsx" /* webpackChunkName: "cast" */));
+const Reviews = lazy(() =>
+  import("./Reviews.jsx" /* webpackChunkName: "reviews" */)
+);
 
 export default function MovieDetailsView() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const { url, path } = useRouteMatch();
+  console.log(url);
 
   useEffect(() => {
     API.getMovieById(movieId).then(setMovie);
@@ -37,20 +42,21 @@ export default function MovieDetailsView() {
         </div>
         <ul>
           <li key="cast">
-            <NavLink to={`/movies/${movieId}/cast`}>{"Cast"}</NavLink>
+            <NavLink to={`${url}/cast`}>{"Cast"}</NavLink>
           </li>
           <li key="reviews">
             {" "}
-            <NavLink to={`/movies/${movieId}/reviews`}>{"Reviews"}</NavLink>
+            <NavLink to={`${url}/reviews`}>{"Reviews"}</NavLink>
           </li>
         </ul>
-
-        <Route path="/movies/:movieId/cast">
-          <Cast id={movieId} />
-        </Route>
-        <Route path="/movies/:movieId/reviews">
-          <Reviews id={movieId} />
-        </Route>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Route path={`${path}/cast`}>
+            <Cast id={movieId} />
+          </Route>
+          <Route path={`${path}/reviews`}>
+            <Reviews id={movieId} />
+          </Route>
+        </Suspense>
       </div>
     )
   );

@@ -10,7 +10,7 @@ export default function Homepage() {
   }, []);
 
   return (
-    <>
+    <div>
       {popMovies && (
         <ul>
           {popMovies.map((movie) => (
@@ -20,6 +20,6 @@ export default function Homepage() {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }
