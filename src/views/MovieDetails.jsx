@@ -1,5 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from "react";
-import { NavLink, useParams, useRouteMatch } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useParams,
+  useRouteMatch,
+  useLocation,
+} from "react-router-dom";
 import { Route } from "react-router-dom";
 import * as API from "../services/tmdbApi";
 
@@ -9,6 +15,8 @@ const Reviews = lazy(() =>
 );
 
 export default function MovieDetailsView() {
+  const location = useLocation();
+  console.log(location);
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const { url, path } = useRouteMatch();
@@ -21,6 +29,7 @@ export default function MovieDetailsView() {
   return (
     movie && (
       <div>
+        <Link to={location?.state?.from ?? "/"}>Back to Movies</Link>
         <div>
           <img
             src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
@@ -42,11 +51,29 @@ export default function MovieDetailsView() {
         </div>
         <ul>
           <li key="cast">
-            <NavLink to={`${url}/cast`}>{"Cast"}</NavLink>
+            <NavLink
+              to={{
+                pathname: `${url}/cast`,
+                state: {
+                  from: location?.state?.from ?? "/",
+                },
+              }}
+            >
+              Cast
+            </NavLink>
           </li>
           <li key="reviews">
             {" "}
-            <NavLink to={`${url}/reviews`}>{"Reviews"}</NavLink>
+            <NavLink
+              to={{
+                pathname: `${url}/reviews`,
+                state: {
+                  from: location?.state?.from ?? "/",
+                },
+              }}
+            >
+              {"Reviews"}
+            </NavLink>
           </li>
         </ul>
         <Suspense fallback={<h1>Loading...</h1>}>
