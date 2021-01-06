@@ -26,5 +26,6 @@
 @media screen and (min-width: 1200px) {
   .header {
     width: 1200px;
+    background-image: url(../../img/header-desktop.jpg);
   }
 }

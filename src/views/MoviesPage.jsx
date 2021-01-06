@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useRouteMatch, useHistory, useLocation } from "react-router-dom";
+import { useRouteMatch, useHistory, useLocation } from "react-router-dom";
 import * as API from "../services/tmdbApi";
 import SearchForm from "../components/SearchForm";
 import Button from "../components/Button";
+import MoviesList from "../components/MoviesList";
 
 export default function MoviesPage() {
   const history = useHistory();
@@ -41,26 +42,7 @@ export default function MoviesPage() {
       <SearchForm onSubmit={handleSearch} />
       {searchResult && (
         <div>
-          <ul>
-            {searchResult.map((movie) => (
-              <li key={movie.id}>
-                <Link
-                  to={{
-                    pathname: `${url}/${movie.id}`,
-                    state: {
-                      from: location,
-                    },
-                  }}
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
-                    alt={movie.original_title}
-                  />
-                  <p>{movie.title}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <MoviesList moviesArr={searchResult} url={url} />
           <Button onClick={handleShowMore} />
         </div>
       )}

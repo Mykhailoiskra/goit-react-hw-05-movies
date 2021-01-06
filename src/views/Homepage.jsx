@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import * as API from "../services/tmdbApi";
+import MoviesList from "../components/MoviesList";
 
 export default function Homepage() {
   const [popMovies, setPopMovies] = useState(null);
@@ -9,23 +9,5 @@ export default function Homepage() {
     API.getTrendingMovies().then(({ results }) => setPopMovies(results));
   }, []);
 
-  return (
-    <div>
-      {popMovies && (
-        <ul>
-          {popMovies.map((movie) => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
-                  alt={movie.original_title}
-                />
-                <p>{movie.title}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+  return <>{popMovies && <MoviesList moviesArr={popMovies} />}</>;
 }

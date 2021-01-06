@@ -1,4 +1,5 @@
 import { useState } from "react";
+import s from "./SearchForm.module.css";
 
 export default function SearchBar({ onSubmit }) {
   const [input, setInput] = useState("");
@@ -18,13 +19,13 @@ export default function SearchBar({ onSubmit }) {
   };
 
   return (
-    <form className="SearchForm" onSubmit={handleSubmit}>
-      <button type="submit" className="SearchForm-button">
-        <span className="SearchForm-button-label">Search</span>
+    <form className={s.SearchForm} onSubmit={handleSubmit}>
+      <button type="submit" className={s.SearchFormButton}>
+        <span className={s.SearchFormButtonLabel}>Search</span>
       </button>
 
       <input
-        className="SearchForm-input"
+        className={s.SearchFormInput}
         type="text"
         autoComplete="off"
         autoFocus

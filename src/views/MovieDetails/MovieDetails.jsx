@@ -1,0 +1,99 @@
+import s from "./MovieDetails.module.css";
+import { useState, useEffect, lazy, Suspense } from "react";
+import {
+  Link,
+  NavLink,
+  useParams,
+  useRouteMatch,
+  useLocation,
+} from "react-router-dom";
+import { Route } from "react-router-dom";
+import * as API from "../../services/tmdbApi";
+
+const Cast = lazy(() => import("../Cast.jsx" /* webpackChunkName: "cast" */));
+const Reviews = lazy(() =>
+  import("../Reviews.jsx" /* webpackChunkName: "reviews" */)
+);
+
+export default function MovieDetailsView() {
+  const location = useLocation();
+  const { movieId } = useParams();
+  const [movie, setMovie] = useState(null);
+  const { url, path } = useRouteMatch();
+
+  useEffect(() => {
+    API.getMovieById(movieId).then(setMovie);
+  }, [movieId]);
+
+  return (
+    movie && (
+      <>
+        <Link className={s.backBtn} to={location?.state?.from ?? "/"}>
+          Back to Movies
+        </Link>
+        <div className={s.movieCard}>
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+              alt={movie.original_title}
+            />
+          </div>
+          <div className={s.infoWrapper}>
+            <h2 className={s.movieName}>{`${
+              movie.original_title
+            } (${movie.release_date.slice(0, 4)})`}</h2>
+            <div className={s.userScore}>
+              <span className={s.Lbl}>User Score:</span>{" "}
+              <span className={s.Value}>{movie.vote_average}</span>
+            </div>
+            <div className={s.genres}>
+              <span className={s.Lbl}>Genres:</span>
+              {movie.genres.map((genre) => (
+                <span key={genre.id} className={s.genreName}>
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+          </div>
+          <h3 className={s.overviewHeader}>Overview</h3>
+          <p className={s.overviewText}>{movie.overview}</p>
+          <ul>
+            <li key="cast">
+              <NavLink
+                to={{
+                  pathname: `${url}/cast`,
+                  state: {
+                    from: location?.state?.from ?? "/",
+                  },
+                }}
+              >
+                Cast
+              </NavLink>
+            </li>
+            <li key="reviews">
+              {" "}
+              <NavLink
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: {
+                    from: location?.state?.from ?? "/",
+                  },
+                }}
+              >
+                {"Reviews"}
+              </NavLink>
+            </li>
+          </ul>
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Route path={`${path}/cast`}>
+              <Cast id={movieId} />
+            </Route>
+            <Route path={`${path}/reviews`}>
+              <Reviews id={movieId} />
+            </Route>
+          </Suspense>
+        </div>
+      </>
+    )
+  );
+}

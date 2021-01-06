@@ -1,0 +1,40 @@
+.list {
+  list-style: none;
+}
+
+.listItem {
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.listImg {
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.listLink {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .listItem {
+    margin: 15px;
+    width: calc((100% - 60px) / 2);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .listItem {
+    margin: 15px;
+    width: calc((100% - 90px) / 3);
+  }
+}
