@@ -15,7 +15,13 @@ export default function Homepage() {
         <ul>
           {popMovies.map((movie) => (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`/movies/${movie.id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
+                  alt={movie.original_title}
+                />
+                <p>{movie.title}</p>
+              </Link>
             </li>
           ))}
         </ul>

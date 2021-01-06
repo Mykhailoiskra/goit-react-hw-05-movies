@@ -52,7 +52,11 @@ export default function MoviesPage() {
                     },
                   }}
                 >
-                  {movie.title}
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
+                    alt={movie.original_title}
+                  />
+                  <p>{movie.title}</p>
                 </Link>
               </li>
             ))}

@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  margin-left: auto;
+  margin-right: auto;
+  height: 130px;
+  background-color: rgba(0, 0, 0, 0.56);
+  background-image: url(../../img/header-mob.jpg);
+}
+
+@media screen and (min-width: 320px) {
+  .header {
+    width: 320px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    width: 768px;
+    background-image: url(../../img/header-tab.jpg);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .header {
+    width: 1200px;
+  }
+}
