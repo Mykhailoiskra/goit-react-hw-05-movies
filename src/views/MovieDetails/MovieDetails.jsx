@@ -9,10 +9,11 @@ import {
 } from "react-router-dom";
 import { Route } from "react-router-dom";
 import * as API from "../../services/tmdbApi";
+import Loader from "react-loader-spinner";
 
-const Cast = lazy(() => import("../Cast.jsx" /* webpackChunkName: "cast" */));
+const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast" */));
 const Reviews = lazy(() =>
-  import("../Reviews.jsx" /* webpackChunkName: "reviews" */)
+  import("../Reviews" /* webpackChunkName: "reviews" */)
 );
 
 export default function MovieDetailsView() {
@@ -32,12 +33,12 @@ export default function MovieDetailsView() {
           Back to Movies
         </Link>
         <div className={s.movieCard}>
-          <div>
-            <img
-              src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-              alt={movie.original_title}
-            />
-          </div>
+          <img
+            className={s.movieImg}
+            src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+            alt={movie.original_title}
+          />
+
           <div className={s.infoWrapper}>
             <h2 className={s.movieName}>{`${
               movie.original_title
@@ -54,45 +55,59 @@ export default function MovieDetailsView() {
                 </span>
               ))}
             </div>
+            <h3 className={s.overviewHeader}>Overview</h3>
+            <p className={s.overviewText}>{movie.overview}</p>
           </div>
-          <h3 className={s.overviewHeader}>Overview</h3>
-          <p className={s.overviewText}>{movie.overview}</p>
-          <ul>
-            <li key="cast">
-              <NavLink
-                to={{
-                  pathname: `${url}/cast`,
-                  state: {
-                    from: location?.state?.from ?? "/",
-                  },
-                }}
-              >
-                Cast
-              </NavLink>
-            </li>
-            <li key="reviews">
-              {" "}
-              <NavLink
-                to={{
-                  pathname: `${url}/reviews`,
-                  state: {
-                    from: location?.state?.from ?? "/",
-                  },
-                }}
-              >
-                {"Reviews"}
-              </NavLink>
-            </li>
-          </ul>
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Route path={`${path}/cast`}>
-              <Cast id={movieId} />
-            </Route>
-            <Route path={`${path}/reviews`}>
-              <Reviews id={movieId} />
-            </Route>
-          </Suspense>
         </div>
+        <ul className={s.optionsList}>
+          <li key="cast">
+            <NavLink
+              to={{
+                pathname: `${url}/cast`,
+                state: {
+                  from: location?.state?.from ?? "/",
+                },
+              }}
+              className={s.option}
+              activeClassName={s.optionChecked}
+            >
+              Cast
+            </NavLink>
+          </li>
+          <li key="reviews">
+            {" "}
+            <NavLink
+              to={{
+                pathname: `${url}/reviews`,
+                state: {
+                  from: location?.state?.from ?? "/",
+                },
+              }}
+              className={s.option}
+              activeClassName={s.optionChecked}
+            >
+              {"Reviews"}
+            </NavLink>
+          </li>
+        </ul>
+        <Suspense
+          fallback={
+            <Loader
+              type="Puff"
+              color="#00BFFF"
+              height={100}
+              width={100}
+              style={{ textAlign: "center" }}
+            />
+          }
+        >
+          <Route path={`${path}/cast`}>
+            <Cast id={movieId} />
+          </Route>
+          <Route path={`${path}/reviews`}>
+            <Reviews id={movieId} />
+          </Route>
+        </Suspense>
       </>
     )
   );

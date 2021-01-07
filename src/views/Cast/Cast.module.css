@@ -1,0 +1,30 @@
+.castList {
+  margin-top: 20px;
+  list-style: none;
+}
+
+.castItem {
+  margin-bottom: 20px;
+  width: 184px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.castName {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
+  .castList {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .castItem {
+    margin: 10px;
+  }
+}

@@ -1,8 +1,11 @@
 import "./App.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import Loader from "react-loader-spinner";
 import Container from "./components/Container";
 import AppBar from "./components/AppBar";
+import Footer from "./components/Footer";
 
 const Homepage = lazy(() =>
   import("./views/Homepage.jsx" /* webpackChunkName: "homepage" */)
@@ -21,7 +24,17 @@ function App() {
     <>
       <AppBar />
       <Container>
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense
+          fallback={
+            <Loader
+              type="Puff"
+              color="#00BFFF"
+              height={100}
+              width={100}
+              style={{ textAlign: "center" }}
+            />
+          }
+        >
           <Switch>
             <Route path="/" exact>
               <Homepage />
@@ -35,6 +48,8 @@ function App() {
           </Switch>
         </Suspense>
       </Container>
+
+      <Footer />
     </>
   );
 }

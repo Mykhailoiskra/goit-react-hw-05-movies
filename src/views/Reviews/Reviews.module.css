@@ -1,0 +1,14 @@
+.reviewsList {
+  margin-top: 50px;
+  list-style: none;
+}
+
+.reviewsList li {
+  margin-bottom: 20px;
+}
+
+.noReviews {
+  margin-top: 50px;
+  color: red;
+  text-align: center;
+}

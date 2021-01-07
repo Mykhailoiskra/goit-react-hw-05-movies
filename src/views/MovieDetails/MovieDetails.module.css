@@ -10,8 +10,8 @@
   text-decoration: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 1.4;
   font-style: normal;
   font-weight: 500;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
@@ -75,4 +75,52 @@
   margin-top: 10px;
   font-size: 12px;
   line-height: 1.8;
+}
+
+.optionsList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.optionsList li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.option {
+  padding: 8px 16px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  color: black;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: 500;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.optionChecked {
+  background-color: #ff6b08;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 768px) {
+  .movieCard {
+    display: flex;
+    justify-content: space-around;
+  }
+  .infoWrapper {
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
 }
