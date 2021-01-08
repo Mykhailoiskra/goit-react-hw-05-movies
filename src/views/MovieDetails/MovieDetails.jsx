@@ -1,3 +1,4 @@
+// Global imports
 import s from "./MovieDetails.module.css";
 import { useState, useEffect, lazy, Suspense } from "react";
 import {
@@ -8,8 +9,11 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Route } from "react-router-dom";
+
+// Components imports
 import * as API from "../../services/tmdbApi";
 import Loader from "react-loader-spinner";
+import Button from "../../components/Button";
 
 const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast" */));
 const Reviews = lazy(() =>
@@ -21,10 +25,36 @@ export default function MovieDetailsView() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const { url, path } = useRouteMatch();
+  // const { queue, setQueue } = useState([]);
 
   useEffect(() => {
     API.getMovieById(movieId).then(setMovie);
   }, [movieId]);
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem("queue")) {
+  //     return;
+  //   }
+  //   setQueue(JSON.parse(localStorage.getItem("queue")));
+  // }, []);
+
+  const onAddToQueue = () => {
+    if (!localStorage.getItem("queue")) {
+      localStorage.setItem("queue", JSON.stringify([movie]));
+      return;
+    }
+    const queue = JSON.parse(localStorage.getItem("queue"));
+
+    localStorage.setItem("queue", JSON.stringify([movie, ...queue]));
+  };
+
+  const onRemoveFromQueue = () => {
+    const queue = JSON.parse(localStorage.getItem("queue"));
+    const updatedQueue = queue.filter((item) => item.id !== movie.id);
+    console.log(updatedQueue);
+
+    localStorage.setItem("queue", JSON.stringify([...updatedQueue]));
+  };
 
   return (
     movie && (
@@ -57,6 +87,8 @@ export default function MovieDetailsView() {
             </div>
             <h3 className={s.overviewHeader}>Overview</h3>
             <p className={s.overviewText}>{movie.overview}</p>
+            <Button onClick={onAddToQueue} name={"Add to Queue"} />
+            <Button onClick={onRemoveFromQueue} name={"Remove from Queue"} />
           </div>
         </div>
         <ul className={s.optionsList}>

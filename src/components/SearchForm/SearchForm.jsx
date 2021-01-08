@@ -29,7 +29,7 @@ export default function SearchBar({ onSubmit }) {
         type="text"
         autoComplete="off"
         autoFocus
-        placeholder="Search images and photos"
+        placeholder="Search movies"
         value={input}
         onChange={handleNameChange}
       />

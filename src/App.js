@@ -8,15 +8,19 @@ import AppBar from "./components/AppBar";
 import Footer from "./components/Footer";
 
 const Homepage = lazy(() =>
-  import("./views/Homepage.jsx" /* webpackChunkName: "homepage" */)
+  import("./views/Homepage" /* webpackChunkName: "homepage" */)
 );
 
 const MoviesPage = lazy(() =>
-  import("./views/MoviesPage.jsx" /* webpackChunkName: "movies-page" */)
+  import("./views/MoviesPage" /* webpackChunkName: "movies-page" */)
 );
 
 const MovieDetails = lazy(() =>
   import("./views/MovieDetails" /* webpackChunkName: "movie - details" */)
+);
+
+const Queue = lazy(() =>
+  import("./views/Queue" /* webpackChunkName: "queue" */)
 );
 
 function App() {
@@ -44,6 +48,9 @@ function App() {
             </Route>
             <Route path="/movies/:movieId">
               <MovieDetails />
+            </Route>
+            <Route path="/queue">
+              <Queue />
             </Route>
           </Switch>
         </Suspense>

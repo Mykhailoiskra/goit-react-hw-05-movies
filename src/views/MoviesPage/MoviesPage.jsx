@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useLocation } from "react-router-dom";
-import * as API from "../services/tmdbApi";
-import SearchForm from "../components/SearchForm";
-import Button from "../components/Button";
-import MoviesList from "../components/MoviesList";
+import * as API from "../../services/tmdbApi";
+import SearchForm from "../../components/SearchForm";
+import Button from "../../components/Button";
+import MoviesList from "../../components/MoviesList";
 
 export default function MoviesPage() {
   const history = useHistory();
@@ -43,7 +43,7 @@ export default function MoviesPage() {
       {searchResult && (
         <div>
           <MoviesList moviesArr={searchResult} url={url} />
-          <Button onClick={handleShowMore} />
+          <Button onClick={handleShowMore} name={"Show more"} />
         </div>
       )}
     </>
