@@ -8,8 +8,8 @@
   text-transform: uppercase;
 }
 
-.link:first-child {
-  margin-right: 40px;
+.link:not(:last-child) {
+  margin-right: 20px;
 }
 
 .activeLink {

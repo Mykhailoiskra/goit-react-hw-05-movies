@@ -25,18 +25,20 @@ export default function MovieDetailsView() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const { url, path } = useRouteMatch();
-  // const { queue, setQueue } = useState([]);
+  const [inQueue, setInQueue] = useState(true);
 
   useEffect(() => {
     API.getMovieById(movieId).then(setMovie);
   }, [movieId]);
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem("queue")) {
-  //     return;
-  //   }
-  //   setQueue(JSON.parse(localStorage.getItem("queue")));
-  // }, []);
+  useEffect(() => {
+    const queue = JSON.parse(localStorage.getItem("queue"));
+    if (!movie) {
+      return;
+    } else if (!queue || !queue.find((item) => item.id === movie.id)) {
+      setInQueue(false);
+    }
+  }, [inQueue, movie]);
 
   const onAddToQueue = () => {
     if (!localStorage.getItem("queue")) {
@@ -44,16 +46,15 @@ export default function MovieDetailsView() {
       return;
     }
     const queue = JSON.parse(localStorage.getItem("queue"));
-
     localStorage.setItem("queue", JSON.stringify([movie, ...queue]));
+    setInQueue(true);
   };
 
   const onRemoveFromQueue = () => {
     const queue = JSON.parse(localStorage.getItem("queue"));
     const updatedQueue = queue.filter((item) => item.id !== movie.id);
-    console.log(updatedQueue);
-
     localStorage.setItem("queue", JSON.stringify([...updatedQueue]));
+    setInQueue(false);
   };
 
   return (
@@ -87,8 +88,11 @@ export default function MovieDetailsView() {
             </div>
             <h3 className={s.overviewHeader}>Overview</h3>
             <p className={s.overviewText}>{movie.overview}</p>
-            <Button onClick={onAddToQueue} name={"Add to Queue"} />
-            <Button onClick={onRemoveFromQueue} name={"Remove from Queue"} />
+            {inQueue ? (
+              <Button onClick={onRemoveFromQueue} name={"Remove from Queue"} />
+            ) : (
+              <Button onClick={onAddToQueue} name={"Add to Queue"} />
+            )}
           </div>
         </div>
         <ul className={s.optionsList}>
