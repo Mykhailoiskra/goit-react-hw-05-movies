@@ -23,8 +23,9 @@ const Reviews = lazy(() =>
 export default function MovieDetailsView() {
   const location = useLocation();
   const { movieId } = useParams();
-  const [movie, setMovie] = useState(null);
   const { url, path } = useRouteMatch();
+
+  const [movie, setMovie] = useState(null);
   const [inQueue, setInQueue] = useState(true);
 
   useEffect(() => {
@@ -41,11 +42,13 @@ export default function MovieDetailsView() {
   }, [inQueue, movie]);
 
   const onAddToQueue = () => {
-    if (!localStorage.getItem("queue")) {
+    const queue = JSON.parse(localStorage.getItem("queue"));
+    if (!queue) {
       localStorage.setItem("queue", JSON.stringify([movie]));
+      setInQueue(true);
       return;
     }
-    const queue = JSON.parse(localStorage.getItem("queue"));
+
     localStorage.setItem("queue", JSON.stringify([movie, ...queue]));
     setInQueue(true);
   };

@@ -1,3 +1,4 @@
+import s from "./MoviesPage.module.css";
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useLocation } from "react-router-dom";
 import * as API from "../../services/tmdbApi";
@@ -40,12 +41,15 @@ export default function MoviesPage() {
   return (
     <>
       <SearchForm onSubmit={handleSearch} />
-      {searchResult && (
-        <div>
-          <MoviesList moviesArr={searchResult} url={url} />
-          <Button onClick={handleShowMore} name={"Show more"} />
-        </div>
-      )}
+      {searchResult &&
+        (searchResult.length > 0 ? (
+          <div>
+            <MoviesList moviesArr={searchResult} url={url} />
+            <Button onClick={handleShowMore} name={"Show more"} />
+          </div>
+        ) : (
+          <h1 className={s.noResTitle}>Noting was found</h1>
+        ))}
     </>
   );
 }

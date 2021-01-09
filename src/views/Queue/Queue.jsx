@@ -1,3 +1,4 @@
+import s from "./Queue.module.css";
 import { useState, useEffect } from "react";
 import MoviesList from "../../components/MoviesList";
 export default function Queue() {
@@ -9,7 +10,7 @@ export default function Queue() {
 
   return (
     <>
-      <h1>Movies I want to watch:</h1>
+      <h1 className={s.title}>Movies I want to watch:</h1>
       {queue && <MoviesList moviesArr={queue} />}
     </>
   );
