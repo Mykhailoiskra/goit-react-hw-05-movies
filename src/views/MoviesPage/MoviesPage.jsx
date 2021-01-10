@@ -1,7 +1,7 @@
 import s from "./MoviesPage.module.css";
 import { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useLocation } from "react-router-dom";
-import * as API from "../../services/tmdbApi";
+import { findMovie } from "../../services/tmdbApi";
 import SearchForm from "../../components/SearchForm";
 import Button from "../../components/Button";
 import MoviesList from "../../components/MoviesList";
@@ -20,7 +20,7 @@ export default function MoviesPage() {
     if (searchQuery === null) {
       return;
     }
-    API.findMovie(searchQuery, page).then((res) => {
+    findMovie(searchQuery, page).then((res) => {
       if (page === 1) {
         setSearchResult(res.results);
       } else {

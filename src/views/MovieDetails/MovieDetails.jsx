@@ -11,7 +11,7 @@ import {
 import { Route } from "react-router-dom";
 
 // Components imports
-import * as API from "../../services/tmdbApi";
+import { getMovieById } from "../../services/tmdbApi";
 import Loader from "react-loader-spinner";
 import Button from "../../components/Button";
 
@@ -29,7 +29,7 @@ export default function MovieDetailsView() {
   const [inQueue, setInQueue] = useState(true);
 
   useEffect(() => {
-    API.getMovieById(movieId).then(setMovie);
+    getMovieById(movieId).then(setMovie);
   }, [movieId]);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function MovieDetailsView() {
           <li key="cast">
             <NavLink
               to={{
-                pathname: `${url}/cast`,
+                pathname: `${url}/credits`,
                 state: {
                   from: location?.state?.from ?? "/",
                 },
@@ -114,7 +114,6 @@ export default function MovieDetailsView() {
             </NavLink>
           </li>
           <li key="reviews">
-            {" "}
             <NavLink
               to={{
                 pathname: `${url}/reviews`,
@@ -140,7 +139,7 @@ export default function MovieDetailsView() {
             />
           }
         >
-          <Route path={`${path}/cast`}>
+          <Route path={`${path}/credits`}>
             <Cast id={movieId} />
           </Route>
           <Route path={`${path}/reviews`}>

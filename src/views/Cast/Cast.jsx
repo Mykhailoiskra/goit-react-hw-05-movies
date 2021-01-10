@@ -1,13 +1,13 @@
 import s from "./Cast.module.css";
 import { useState, useEffect } from "react";
-import * as API from "../../services/tmdbApi";
+import { getCast } from "../../services/tmdbApi";
 import PropTypes from "prop-types";
 
 export default function Cast({ id }) {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    API.getCast(id).then((res) => setCast(res.cast));
+    getCast(id).then((res) => setCast(res.cast));
   }, [id]);
 
   return (

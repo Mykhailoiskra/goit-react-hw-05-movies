@@ -1,13 +1,13 @@
 import s from "./Reviews.module.css";
 import { useState, useEffect } from "react";
-import * as API from "../../services/tmdbApi";
+import { getReviews } from "../../services/tmdbApi";
 import PropTypes from "prop-types";
 
 export default function Reviews({ id }) {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    API.getReviews(id).then((res) => setReviews(res.results));
+    getReviews(id).then((res) => setReviews(res.results));
   }, [id]);
 
   return reviews.length > 0 ? (
