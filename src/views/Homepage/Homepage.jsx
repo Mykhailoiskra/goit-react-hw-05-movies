@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+// Libraries import
+import React, { useState, useEffect } from "react";
 import { getTrendingMovies } from "../../services/tmdbApi";
+
+// Components import
 import MoviesList from "../../components/MoviesList";
 
 export default function Homepage() {

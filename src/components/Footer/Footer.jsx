@@ -1,4 +1,8 @@
+// Libraries import
+import React from "react";
+// Other imports
 import s from "./Footer.module.css";
+
 export default function Footer() {
   return (
     <footer>

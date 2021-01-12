@@ -1,6 +1,12 @@
-import s from "./Queue.module.css";
-import { useState, useEffect } from "react";
+// Libraries import
+import React, { useState, useEffect } from "react";
+
+// Components import
 import MoviesList from "../../components/MoviesList";
+
+// Other imports
+import s from "./Queue.module.css";
+
 export default function Queue() {
   const [queue, setQueue] = useState(null);
 

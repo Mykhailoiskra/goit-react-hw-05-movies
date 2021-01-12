@@ -1,10 +1,17 @@
 import s from "./MoviesPage.module.css";
-import { useState, useEffect } from "react";
+
+// Libraries import
+import React, { useState, useEffect } from "react";
 import { useRouteMatch, useHistory, useLocation } from "react-router-dom";
-import { findMovie } from "../../services/tmdbApi";
+
+// Components import
+
 import SearchForm from "../../components/SearchForm";
 import Button from "../../components/Button";
 import MoviesList from "../../components/MoviesList";
+
+// Other imports
+import { findMovie } from "../../services/tmdbApi";
 
 export default function MoviesPage() {
   const history = useHistory();

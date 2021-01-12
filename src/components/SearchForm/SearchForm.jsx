@@ -1,4 +1,7 @@
-import { useState } from "react";
+// Libraries import
+import React, { useState } from "react";
+
+// Other imports
 import s from "./SearchForm.module.css";
 
 export default function SearchBar({ onSubmit }) {

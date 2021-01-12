@@ -1,6 +1,5 @@
-// Global imports
-import s from "./MovieDetails.module.css";
-import { useState, useEffect, lazy, Suspense } from "react";
+// Libraries
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import {
   Link,
   NavLink,
@@ -11,13 +10,17 @@ import {
 import { Route } from "react-router-dom";
 
 // Components imports
-import { getMovieById } from "../../services/tmdbApi";
 import Loader from "react-loader-spinner";
 import Button from "../../components/Button";
 
-const Cast = lazy(() => import("../Cast" /* webpackChunkName: "cast" */));
+// Other imports
+import s from "./MovieDetails.module.css";
+import { getMovieById } from "../../services/tmdbApi";
+const Cast = lazy(() =>
+  import("../../components/Cast" /* webpackChunkName: "cast" */)
+);
 const Reviews = lazy(() =>
-  import("../Reviews" /* webpackChunkName: "reviews" */)
+  import("../../components/Reviews" /* webpackChunkName: "reviews" */)
 );
 
 export default function MovieDetailsView() {

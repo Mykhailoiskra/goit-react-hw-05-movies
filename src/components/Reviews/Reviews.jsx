@@ -1,7 +1,11 @@
-import s from "./Reviews.module.css";
-import { useState, useEffect } from "react";
-import { getReviews } from "../../services/tmdbApi";
+// Libraries import
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
+// Other imports
+import { getReviews } from "../../services/tmdbApi";
+
+import s from "./Reviews.module.css";
 
 export default function Reviews({ id }) {
   const [reviews, setReviews] = useState([]);

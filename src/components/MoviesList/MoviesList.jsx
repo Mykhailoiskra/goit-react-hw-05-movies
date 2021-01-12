@@ -1,6 +1,10 @@
+// Libraries import
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import s from "./MoviesList.module.css";
 import PropTypes from "prop-types";
+
+// Other imports
+import s from "./MoviesList.module.css";
 
 export default function MoviesList({ moviesArr, url = "/movies" }) {
   const location = useLocation();

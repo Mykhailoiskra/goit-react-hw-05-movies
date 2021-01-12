@@ -1,7 +1,10 @@
-import s from "./Cast.module.css";
-import { useState, useEffect } from "react";
-import { getCast } from "../../services/tmdbApi";
+// Libraries import
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
+// Other imports
+import { getCast } from "../../services/tmdbApi";
+import s from "./Cast.module.css";
 
 export default function Cast({ id }) {
   const [cast, setCast] = useState(null);
