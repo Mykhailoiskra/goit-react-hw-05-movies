@@ -46,11 +46,11 @@ function App() {
             <Route path="/movies" exact>
               <MoviesPage />
             </Route>
-            <Route path="/movies/:movieId">
-              <MovieDetails />
-            </Route>
             <Route path="/queue">
               <Queue />
+            </Route>
+            <Route path="/movies/:movieId">
+              <MovieDetails />
             </Route>
           </Switch>
         </Suspense>

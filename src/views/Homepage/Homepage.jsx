@@ -1,21 +1,27 @@
 // Libraries import
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { getTrendingMovies } from "../../services/tmdbApi";
+import Loader from "react-loader-spinner";
 
 // Components import
 import MoviesList from "../../components/MoviesList";
 
 export default function Homepage() {
-  const [popMovies, setPopMovies] = useState(null);
+  const { status, data, error } = useQuery("popularMovies", getTrendingMovies);
 
-  useEffect(() => {
-    getTrendingMovies().then(({ results }) => setPopMovies(results));
-  }, []);
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  if (status === "error") {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Popular movies this week:</h1>
-      {popMovies && <MoviesList moviesArr={popMovies} />}
+      {status === "success" && <MoviesList moviesArr={data.results} />}
     </>
   );
 }
